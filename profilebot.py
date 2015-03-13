@@ -47,7 +47,7 @@ class ProfileBot:
         """
 
         # pick a word at random from the word list and replace
-        newword = wordlist[random.randrange(len(wordlist))]
+        newword = random.choice(wordlist)
         profile = profile.replace(oldword, newword)
 
         # update profile
