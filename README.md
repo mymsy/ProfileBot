@@ -1,13 +1,13 @@
 # ProfileBot
 A tool for randomly changing words in a Twitter profile.
 
-Apart from your Twitter account, you will need
+Apart from your Twitter account, you will need:
 * Application access tokens from [apps.twitter.com](apps.twitter.com).
 Directions for generating them are given at the end of this file.
 * Python (tested with 2.7.9)
 * [Tweepy](http://www.tweepy.org/), a Python library for Twitter
 
-# Usage 
+## Usage 
 Basic use case is running periodically via cron and 
 `updateprof.sh`. Enter your access tokens, profile text, and potential 
 word replacements into `updateprof.sh`, run `crontab -e` to edit 
@@ -34,11 +34,13 @@ python profilebot.py --consumer_key <CK> \
                      --with "profile" "ridiculous" "silly" "annoying"
 ```
 
+with the same substitutions as in the shell script.
+
 ## Obtaining Access Tokens
 Twitter requires four access tokens for an application to autonomously 
-update your profile, which you will need to generate
-* Log in to Twitter with the account you want the script to affect
-* Open [Twitter Application Management](apps.twitter.com)
+update your profile, which you will need to generate:
+* Log in to Twitter with the account you want the script to affect.
+* Open [Twitter Application Management](apps.twitter.com).
 * Click the 'Create New App' button and fill out the form. Callback URL 
 doesn't matter.
 * Switch to the 'Permissions' tab, select 'Read and Write', and click 
