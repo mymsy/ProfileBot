@@ -1,49 +1,60 @@
-"""A bot for changing pronouns in a twitter profile.
+"""A tool for randomly changing words in a Twitter profile.
 
-Imagined use case is running once a day via cron and a shell script
-(updateprof.sh is provided with the repository)
+Use requires creating an application via apps.twitter.com and generating
+a Consumer Key, Consumer Secret, Access Token, and Access Token Secret.
+The application also requires read and write permission. 
 
-0 0 * * * cd /home/user/profilebot; bash updateprof.sh >>error.log 2>&1
+Class:
+    ProfileBot - handles api access and profile updating
 """
 
 import tweepy
 import random
 
 class ProfileBot:
-    """A bot for changing pronouns in a twitter profile"""
+    """A tool for randomly changing words in a Twitter profile.
+
+    Methods:
+        new_profile - Updates Twitter profile with a single word replaced
+            by a randomly chosen new word. No length checking is performed,
+            so make sure it fits.
+
+    Attributes:
+        api: Tweepy api wrapper object
+    """
 
     def __init__(self, consumer_key, consumer_secret, access_token,
                  access_token_secret):
-        """Initialise the bot with twitter api auth tokens
+        """Initialise the bot with Twitter api auth tokens
 
         Arguments (all values from apps.twitter.com):
-        consumer_key - Twitter consumer key
-        consumer_secret - Twitter consumer secret
-        access_token - Twitter app access token
-        access_token_secret - Twitter app access token secret
+            consumer_key - Twitter consumer key
+            consumer_secret - Twitter consumer secret
+            access_token - Twitter app access token
+            access_token_secret - Twitter app access token secret
 
         Postcondition: 
-        An api access object is created using the access tokens
+            A Tweepy api wrapper object is created using the access tokens
         """
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
 
         self.api = tweepy.API(auth)
 
-    def newprofile(self, profile, oldword, wordlist):
+    def new_profile(self, profile, oldword, wordlist):
         """Update profile text with a random wordlist
 
         Arguments:
-        profile - string with the base profile text
-        oldword - string with the word to be replaced
-        wordlist - List of potential replacement strings, 
-                   one will be chosen at random
+            profile  - string with the base profile text
+            oldword  - string with the word to be replaced
+            wordlist - List of potential replacement strings, 
+                       one will be chosen at random
 
         Postcondition:
-        Twitter profile has been changed to the new string with
-        randomly chosen replacement word. Currently unable to
-        determine success or failure - this is missing from tweepy
-        documentation.
+            Twitter profile has been changed to the new string with
+            randomly chosen replacement word. Currently unable to
+            determine success or failure - this is missing from Tweepy
+            documentation.
         """
 
         # pick a word at random from the word list and replace
@@ -81,4 +92,4 @@ if __name__ == '__main__':
                      args.access_token, args.access_token_secret)
     
     # update the profile
-    bot.newprofile(args.profile, args.replace, args.wordlist)
+    bot.new_profile(args.profile, args.replace, args.wordlist)
